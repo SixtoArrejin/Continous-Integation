@@ -3,13 +3,14 @@ version: 2.1
 jobs:
   lint:
     docker:
-      - image: circleci/node:latest
+      - image: cimg/node:latest
     steps:
       - checkout
       - run: npm install
+      - run: eslint
   test:
     docker:
-      - image: circleci/node:latest
+      - image: cimg/node:latest
     steps:
       - checkout
       - run:
@@ -25,7 +26,7 @@ jobs:
 
   deploy:
     docker:
-      - image: circleci/node:14.17
+      - image: cimg/node:14.17
     steps:
       - checkout
       - run: |
