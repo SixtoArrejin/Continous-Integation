@@ -1,0 +1,53 @@
+version: 2.1
+
+jobs:
+  lint:
+    docker:
+      - image: circleci/node:latest
+    steps:
+      - checkout
+      - run: npm install
+      - run: npm run lint
+  test:
+    docker:
+      - image: circleci/node:latest
+    steps:
+      - checkout
+      - run:
+          name: Instalar Mocha y Chai
+          command: npm install mocha chai
+      - run:
+          name: Ejecutar pruebas
+          command: npx mocha test/test.js
+      - run:    
+          name: Notificar a Slack 
+          command: |
+            curl -X POST -H 'Content-type: application/json' --data '{"text":"Test pasados con éxito."}' $SLACK_WEBHOOK_URL
+
+  deploy:
+    docker:
+      - image: circleci/node:14.17
+    steps:
+      - checkout
+      - run: |
+          response=$(curl -s -o /dev/null -w "%{http_code}" -X POST "https://api.render.com/deploy/srv-cpdr55n109ks73em4ecg?key=0m-6SGBdA7I")
+          if [ $response -eq 200 ]; then
+            echo "Deployment successful"
+            curl -X POST -H 'Content-type: application/json' --data '{"text":"Deploy exitoso."}' $SLACK_WEBHOOK_URL
+          else
+            echo "Deployment failed with HTTP status code $response"
+            curl -X POST -H 'Content-type: application/json' --data '{"text":"¡Ha fallado el Deploy!"}' "$SLACK_WEBHOOK_URL"
+            exit 1
+          fi
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - lint
+      - test:
+          requires:
+            - lint
+      - deploy:
+          requires:
+            - test
