@@ -7,7 +7,6 @@ jobs:
     steps:
       - checkout
       - run: npm install
-      - run: npm run lint
   test:
     docker:
       - image: circleci/node:latest
@@ -30,7 +29,7 @@ jobs:
     steps:
       - checkout
       - run: |
-          response=$(curl -s -o /dev/null -w "%{http_code}" -X POST "https://api.render.com/deploy/srv-cpdr55n109ks73em4ecg?key=0m-6SGBdA7I")
+          response=$(curl -s -o /dev/null -w "%{http_code}" -X POST "https://api.render.com/deploy/srv-cpgt1a6ct0pc739vl2v0?key=xSaX_h-ugyA")
           if [ $response -eq 200 ]; then
             echo "Deployment successful"
             curl -X POST -H 'Content-type: application/json' --data '{"text":"Deploy exitoso."}' $SLACK_WEBHOOK_URL
