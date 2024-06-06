@@ -8,6 +8,7 @@ jobs:
       - checkout
       - run: npm install
       - run: npx eslint .
+      - run: npm run lint:html
   test:
     docker:
       - image: cimg/node:18.20.3
