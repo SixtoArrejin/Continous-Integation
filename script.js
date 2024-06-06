@@ -8,6 +8,5 @@ function sumar() {
     } else {
         var suma = num1 + num2;
         document.getElementById('resultado').innerText = 'La suma es: ' + suma;
-        pepe.saluda()
     }
 }
