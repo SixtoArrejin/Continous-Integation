@@ -7,7 +7,7 @@ jobs:
     steps:
       - checkout
       - run: npm install
-      - run: npx eslint .
+      - run: npm run lint
       - run: npm run lint:html
   test:
     docker:
@@ -40,6 +40,12 @@ jobs:
             curl -X POST -H 'Content-type: application/json' --data '{"text":"¡Ha fallado el Deploy!"}' "$SLACK_WEBHOOK_URL"
             exit 1
           fi
+      - run:
+          name: Instalar Selenium
+          command: npm install selenium-webdriver
+      - run:
+          name: Ejecutar pruebas de Selenium
+          command: npm run selenium-test
 
 workflows:
   version: 2
