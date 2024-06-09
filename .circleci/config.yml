@@ -80,14 +80,13 @@ workflows:
             branches:
               only: main
       - test:
-          requires:
-            - lint
           filters:
             branches:
               only: main
       - deploy:
           requires:
             - test
+            - lint
           filters:
             branches:
               only: main
