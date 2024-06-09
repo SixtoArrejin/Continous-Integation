@@ -6,5 +6,6 @@ module.exports = {
     setupNodeEvents(on, config) {
       // implementa aquí los listeners de eventos de Node
     },
+    supportFile: false
   },
 };
