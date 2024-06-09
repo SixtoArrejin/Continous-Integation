@@ -40,7 +40,24 @@ jobs:
             curl -X POST -H 'Content-type: application/json' --data '{"text":"¡Ha fallado el Deploy!"}' "$SLACK_WEBHOOK_URL"
             exit 1
           fi
-  
+      - run:
+          name: Esperar a que el deploy se complete
+          command: |
+            deploy_status="pending"
+            while [ "$deploy_status" != "live" ]; do
+              response=$(curl -s -X GET "https://api.render.com/v1/services/srv-cpgt1a6ct0pc739vl2v0?key=xSaX_h-ugyA")
+              deploy_status=$(echo $response | jq -r '.service.deploy.status')
+              echo "Current deploy status: $deploy_status"
+              if [ "$deploy_status" == "failed" ]; then
+                echo "Deployment failed."
+                curl -X POST -H 'Content-type: application/json' --data '{"text":"¡El deploy ha fallado!"}' $SLACK_WEBHOOK_URL
+                exit 1
+              fi
+              sleep 10
+            done
+            echo "Deployment completed successfully."
+            curl -X POST -H 'Content-type: application/json' --data '{"text":"Deploy completado con éxito."}' $SLACK_WEBHOOK_URL
+
   test-production:
     docker:
       - image: cypress/base
