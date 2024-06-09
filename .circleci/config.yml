@@ -7,7 +7,7 @@ jobs:
     steps:
       - checkout
       - run: npm install
-      - run: npx eslint .
+      - run: npm run lint
       - run: npm run lint:html
   test:
     docker:
@@ -40,6 +40,16 @@ jobs:
             curl -X POST -H 'Content-type: application/json' --data '{"text":"¡Ha fallado el Deploy!"}' "$SLACK_WEBHOOK_URL"
             exit 1
           fi
+      - run:
+          name: Instalar Cypress
+          command: npm install cypress
+      - run:
+          name: Ejecutar pruebas de Cypress
+          command: npm run cypress:run
+      - run:    
+          name: Notificar a Slack 
+          command: |
+            curl -X POST -H 'Content-type: application/json' --data '{"text":"Test en producción pasados con éxito."}' $SLACK_WEBHOOK_URL
 
 workflows:
   version: 2
