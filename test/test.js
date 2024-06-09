@@ -1,17 +1,16 @@
-import { expect } from 'chai';
+import { strictEqual } from 'assert';
+import sum from '../script.js';
 
-describe('Suma de Números', () => {
-  it('debería sumar correctamente dos números', () => {
-    const num1 = 2;
-    const num2 = 3;
-    const suma = num1 + num2;
-    expect(suma).to.equal(5);
-  });
+describe('Función sumar()', () => {
+    it('debería devolver la suma de dos números', () => {
+        strictEqual(sum(2, 3), 'La suma es: 5');
+        strictEqual(sum(0, 0), 'La suma es: 0');
+        strictEqual(sum(-1, 1), 'La suma es: 0');
+    });
 
-  it('debería retornar NaN si uno de los valores no es un número', () => {
-    const num1 = 'abc';
-    const num2 = 3;
-    const suma = parseFloat(num1) + num2;
-    expect(isNaN(suma)).to.be.true;
-  });
+    it('debería devolver NaN si se le pasa un valor no numérico', () => {
+        strictEqual(sum('a', 5), 'Por favor, ingrese dos números válidos.');
+        strictEqual(sum(2, 'b'), 'Por favor, ingrese dos números válidos.');
+        strictEqual(sum('foo', 'bar'), 'Por favor, ingrese dos números válidos.');
+    });
 });
