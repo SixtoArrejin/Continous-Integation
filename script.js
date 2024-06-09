@@ -1,4 +1,4 @@
-import sum from "./funciones";
+import sum from "./funciones.js";
 
 function sumar() {
     var num1 = document.getElementById('num1').value;
