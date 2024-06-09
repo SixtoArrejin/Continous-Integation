@@ -43,7 +43,7 @@ jobs:
   
   test-production:
     docker:
-      - image: cypress/base:14
+      - image: cypress/base
     steps:
       - checkout
       - run:
