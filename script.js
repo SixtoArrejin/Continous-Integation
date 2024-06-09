@@ -1,14 +1,19 @@
-export function sumar() {
-    var num1 = document.getElementById('num1').value;
-    var num2 = document.getElementById('num2').value;
+export default function sum(num1, num2) {
     num1 = parseFloat(num1);
     num2 = parseFloat(num2);
     if (isNaN(num1) || isNaN(num2)) {
-        document.getElementById('resultado').innerText = 'Por favor, ingrese dos números válidos.';
+        return 'Por favor, ingrese dos números válidos.';
     } else {
         var suma = num1 + num2;
-        document.getElementById('resultado').innerText = 'La suma es: ' + suma;
+        return 'La suma es: ' + suma;
     }
 }
 
-window.sumar = sumar
+function sumar() {
+    var num1 = document.getElementById('num1').value;
+    var num2 = document.getElementById('num2').value;
+    var result = sum(num1, num2);
+    document.getElementById('resultado').innerText = result;
+}
+
+window.sumar = sumar;
