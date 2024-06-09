@@ -2,8 +2,9 @@
 
 module.exports = {
   e2e: {
+    baseUrl: 'https://continous-integation.onrender.com',
     setupNodeEvents(on, config) {
-      // implement node event listeners here
+      // implementa aquí los listeners de eventos de Node
     },
   },
 };

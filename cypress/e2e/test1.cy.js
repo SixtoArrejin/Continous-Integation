@@ -1,7 +1,7 @@
 describe('Suma de dos números', () => {
   beforeEach(() => {
     // Visitamos la página antes de cada test
-    cy.visit('https://continous-integation.onrender.com');
+    cy.visit('/');
   });
 
   it('debería sumar dos números correctamente', () => {
