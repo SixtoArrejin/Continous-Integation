@@ -44,7 +44,7 @@ jobs:
           name: Instalar Cypress y Xvfb
           command: |
             npm install cypress
-            sudo apt-get update && sudo apt-get install -y xvfb
+            sudo apt-get update && sudo apt-get install -y xvfb libnss3
       - run:
           name: Ejecutar pruebas de Cypress
           command: npm run cypress:run
