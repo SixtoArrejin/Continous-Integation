@@ -46,6 +46,7 @@ jobs:
             deploy_status="pending"
             while [ "$deploy_status" != "live" ]; do
               response=$(curl -s -X GET "https://api.render.com/v1/services/srv-cpgt1a6ct0pc739vl2v0?key=xSaX_h-ugyA")
+              echo "$response"
               deploy_status=$(echo $response | jq -r '.service.deploy.status')
               echo "Current deploy status: $deploy_status"
               if [ "$deploy_status" == "failed" ]; then
