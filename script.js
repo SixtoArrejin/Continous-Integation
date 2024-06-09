@@ -10,3 +10,5 @@ export function sumar() {
         document.getElementById('resultado').innerText = 'La suma es: ' + suma;
     }
 }
+
+window.sumar = sumar
