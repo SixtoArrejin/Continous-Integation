@@ -40,18 +40,18 @@ jobs:
             curl -X POST -H 'Content-type: application/json' --data '{"text":"¡Ha fallado el Deploy!"}' "$SLACK_WEBHOOK_URL"
             exit 1
           fi
+  
+  test-production:
+    docker:
+      - image: cypress/base:14
+    steps:
+      - checkout
       - run:
-          name: Instalar Cypress y Xvfb
-          command: |
-            npm install cypress
-            sudo apt-get update && sudo apt-get install -y xvfb libnss3
+          name: Instalar dependencias
+          command: npm install
       - run:
           name: Ejecutar pruebas de Cypress
           command: npm run cypress:run
-      - run:    
-          name: Notificar a Slack 
-          command: |
-            curl -X POST -H 'Content-type: application/json' --data '{"text":"Test en producción pasados con éxito."}' $SLACK_WEBHOOK_URL
 
 workflows:
   version: 2
@@ -70,6 +70,12 @@ workflows:
       - deploy:
           requires:
             - test
+          filters:
+            branches:
+              only: main
+      - test-production:
+          requires:
+            - deploy
           filters:
             branches:
               only: main
