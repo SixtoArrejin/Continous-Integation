@@ -32,7 +32,7 @@ jobs:
               exit $test_status
             fi
       - slack/notify:
-          channel: general
+          channel: facultad
           event: pass
           template: basic_success
           custom: |
