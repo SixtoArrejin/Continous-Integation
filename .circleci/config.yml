@@ -9,6 +9,7 @@ jobs:
       - run: npm install
       - run: npm run lint
       - run: npm run lint:html
+
   test:
     docker:
       - image: cimg/node:18.20.3
@@ -19,11 +20,17 @@ jobs:
           command: npm install mocha chai
       - run:
           name: Ejecutar pruebas
-          command: npm run test
+          command: |
+            npm run test || test_status=$?
       - run:    
           name: Notificar a Slack 
           command: |
-            curl -X POST -H 'Content-type: application/json' --data '{"text":"Test pasados con éxito."}' $SLACK_WEBHOOK_URL
+            if [ -z ${test_status+x} ]; then 
+              curl -X POST -H 'Content-type: application/json' --data '{"text":"Test pasados con éxito."}' $SLACK_WEBHOOK_URL
+            else 
+              curl -X POST -H 'Content-type: application/json' --data '{"text":"¡Ha fallado algún test!"}' $SLACK_WEBHOOK_URL
+              exit $test_status
+            fi
 
   deploy:
     docker:
