@@ -31,7 +31,6 @@ jobs:
               curl -X POST -H 'Content-type: application/json' --data '{"text":"¡Ha fallado algún test!"}' $SLACK_WEBHOOK_URL
               exit $test_status
             fi
-            commit_msg=$(git log -1 --pretty=%B)
       - slack/notify:
           channel: facultad
           event: pass
@@ -59,7 +58,7 @@ jobs:
                     },
                     {
                       "type": "mrkdwn",
-                      "text": "*Commit:*\n$commit_msg"
+                      "text": "*Commit:*\n$(git log -1 --pretty=%B)"
                     },
                     {
                       "type": "mrkdwn",
