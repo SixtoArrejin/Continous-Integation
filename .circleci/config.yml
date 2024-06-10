@@ -42,7 +42,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "TEST EXITOSO :white_check_mark:"
+                    "text": "TEST EXITOSO! :white_check_mark:"
                   }
                 },
                 {
