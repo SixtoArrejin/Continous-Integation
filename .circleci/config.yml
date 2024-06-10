@@ -23,9 +23,31 @@ jobs:
           command: |
             npm run test || test_status=$?
             if [ -z ${test_status+x} ]; then 
-              curl -X POST -H 'Content-type: application/json' --data '{"text":"Test pasados con éxito."}' $SLACK_WEBHOOK_URL
+              curl -X POST -H 'Content-type: application/json' --data '{
+                "text": "Test pasados con éxito.",
+                "blocks": [
+                  {
+                    "type": "section",
+                    "text": {
+                      "type": "mrkdwn",
+                      "text": "*Commit:* <$CIRCLE_REPOSITORY_URL/commit/$CIRCLE_SHA1|$CIRCLE_SHA1>\n*Autor:* $CIRCLE_USERNAME\n*Branch:* $CIRCLE_BRANCH"
+                    }
+                  }
+                ]
+              }' $SLACK_WEBHOOK_URL
             else 
-              curl -X POST -H 'Content-type: application/json' --data '{"text":"¡Ha fallado algún test!"}' $SLACK_WEBHOOK_URL
+              curl -X POST -H 'Content-type: application/json' --data '{
+                "text": "¡Ha fallado algún test!",
+                "blocks": [
+                  {
+                    "type": "section",
+                    "text": {
+                      "type": "mrkdwn",
+                      "text": "*Commit:* <$CIRCLE_REPOSITORY_URL/commit/$CIRCLE_SHA1|$CIRCLE_SHA1>\n*Autor:* $CIRCLE_USERNAME\n*Branch:* $CIRCLE_BRANCH"
+                    }
+                  }
+                ]
+              }' $SLACK_WEBHOOK_URL
               exit $test_status
             fi
 
