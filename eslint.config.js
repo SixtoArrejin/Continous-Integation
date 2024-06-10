@@ -1,4 +1,4 @@
-import jsConfig from '@eslint/js';
+// import jsConfig from '@eslint/js';
 
 // Configuración principal de ESLint
 const mainConfig = {

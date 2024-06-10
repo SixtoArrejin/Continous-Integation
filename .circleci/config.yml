@@ -19,7 +19,7 @@ jobs:
           command: npm install mocha chai
       - run:
           name: Ejecutar pruebas
-          command: npx mocha test/test.js
+          command: npm run test
       - run:    
           name: Notificar a Slack 
           command: |
