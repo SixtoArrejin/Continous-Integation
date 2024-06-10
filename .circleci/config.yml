@@ -19,7 +19,7 @@ jobs:
           name: Instalar Mocha y Chai
           command: npm install mocha chai
       - run:    
-          name: Ejecutar pruebas y notificar aa Slack 
+          name: Ejecutar pruebas y notificar al Slack 
           command: |
             npm run test || test_status=$?
             if [ -z ${test_status+x} ]; then 
@@ -58,7 +58,7 @@ jobs:
                 curl -X POST -H 'Content-type: application/json' --data '{"text":"¡El deploy ha fallado!"}' $SLACK_WEBHOOK_URL
                 exit 1
               fi
-              sleep 10
+              sleep 5
             done
             echo "Deployment completed successfully."
             curl -X POST -H 'Content-type: application/json' --data '{"text":"Deploy completado con éxito!"}' $SLACK_WEBHOOK_URL
