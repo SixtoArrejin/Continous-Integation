@@ -3,7 +3,7 @@ import sum from '../funciones.js';
 
 describe('Función sumar()', () => {
   it('debería devolver la suma de dos números', () => {
-    strictEqual(sum(2, 2), 'La suma es: 5');
+    strictEqual(sum(2, 3), 'La suma es: 5');
     strictEqual(sum(0, 0), 'La suma es: 0');
     strictEqual(sum(-1, 1), 'La suma es: 0');
   });
