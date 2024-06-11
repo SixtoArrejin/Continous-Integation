@@ -4,7 +4,7 @@ function sum(num1, num2) {
   if (isNaN(num1) || isNaN(num2)) {
     return 'Por favor, ingrese dos números válidos.';
   } else {
-    var suma = num1 + num2;
+    let suma = num1 + num2;
     return 'La suma es: ' + suma;
   }
 }
