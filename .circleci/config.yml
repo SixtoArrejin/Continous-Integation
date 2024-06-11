@@ -153,6 +153,9 @@ jobs:
           name: Instalar dependencias
           command: npm install
       - run:
+          name: Instalar curl
+          command: apt-get update && apt-get install -y curl
+      - run:
           name: Ejecutar pruebas de Cypress
           command: npm run cypress:run
       - slack/notify:
