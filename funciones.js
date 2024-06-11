@@ -9,8 +9,10 @@ function sum(num1, num2) {
   }
 }
 
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = sum;
+}
+
 if (typeof window !== 'undefined') {
   window.sum = sum;
 }
-
-module.exports = sum;

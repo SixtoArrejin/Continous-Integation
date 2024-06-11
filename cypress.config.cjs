@@ -7,5 +7,5 @@ module.exports = {
       // implementa aquí los listeners de eventos de Node
     },
     supportFile: false
-  },
+  }
 };
