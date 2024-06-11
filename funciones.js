@@ -1,4 +1,4 @@
-export default function sum(num1, num2) {
+function sum(num1, num2) {
   num1 = parseFloat(num1);
   num2 = parseFloat(num2);
   if (isNaN(num1) || isNaN(num2)) {
@@ -8,3 +8,9 @@ export default function sum(num1, num2) {
     return 'La suma es: ' + suma;
   }
 }
+
+if (typeof window !== 'undefined') {
+  window.sum = sum;
+}
+
+module.exports = sum;

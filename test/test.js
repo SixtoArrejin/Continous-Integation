@@ -1,5 +1,6 @@
-import { strictEqual } from 'assert';
-import sum from '../funciones.js';
+const assert = require('assert');
+const strictEqual = assert.strictEqual
+const sum = require('../funciones.js');
 
 describe('Función sumar()', () => {
   it('debería devolver la suma de dos números', () => {

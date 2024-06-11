@@ -1,5 +1,3 @@
-import sum from "./funciones.js";
-
 function sumar() {
   var num1 = document.getElementById('num1').value;
   var num2 = document.getElementById('num2').value;
@@ -7,4 +5,4 @@ function sumar() {
   document.getElementById('resultado').innerText = result;
 }
 
-window.sumar = sumar;
+window.sumar = sumar
