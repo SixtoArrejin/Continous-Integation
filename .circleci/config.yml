@@ -102,7 +102,7 @@ jobs:
           if [ $response -eq 200 ]; then
             echo "Deployment successful"
             deploy_status="pending"
-            SLACK_MESSAGE="Iniciando deploy..."
+            SLACK_MESSAGE="Iniciando deploy... :hammer_and_wrench:"
           else
             echo "Deployment failed with HTTP status code $response"
             SLACK_MESSAGE="La petición de deploy ha fallado! :x:"
@@ -113,18 +113,7 @@ jobs:
           channel: facultad
           event: always
           template: custom
-          custom: |
-            {
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "$SLACK_MESSAGE"
-                  }
-                }
-              ]
-            }
+          custom: '{"text":"$SLACK_MESSAGE"}'
       - run:
           name: Esperar a que el deploy se complete
           command: |
