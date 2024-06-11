@@ -108,6 +108,7 @@ jobs:
             SLACK_MESSAGE="La petición de deploy ha fallado! :x:"
             exit 1
           fi
+          echo "export SLACK_MESSAGE='$SLACK_MESSAGE'" >> $BASH_ENV
       - slack/notify:
           channel: facultad
           event: always
