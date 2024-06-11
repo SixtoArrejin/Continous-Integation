@@ -9,6 +9,12 @@ jobs:
     docker:
       - image: cimg/base:stable
     steps:
+      - checkout
+      - run:
+          name: Obtener el mensaje del commit
+          command: |
+            export COMMIT_MSG=$(git log -1 --pretty=%B)
+            echo "export COMMIT_MSG='$COMMIT_MSG'" >> $BASH_ENV
       - slack/notify:
           channel: facultad
           event: always
@@ -36,7 +42,7 @@ jobs:
                     },
                     {
                       "type": "mrkdwn",
-                      "text": "*Commit:*\n$(git log -1 --pretty=%B)"
+                      "text": "*Commit:*\n$COMMIT_MSG"
                     },
                     {
                       "type": "mrkdwn",
