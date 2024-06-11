@@ -1,27 +1,30 @@
-// import jsConfig from '@eslint/js';
-
 // Configuración principal de ESLint
 const mainConfig = {
-  files: ['**/*.js'],
+  files: ['**/*.js'], // Elimina la exclusión de cypress aquí
+  ignores: ['cypress/**/*.js'], // Utiliza ignorePatterns en lugar de exclude
   languageOptions: {
     ecmaVersion: 2021,
     sourceType: 'module',
     globals: {
       browser: true,
       es2021: true,
-      document: 'readonly',  // Añadir la global 'document'
+      document: 'readonly', 
+      window: 'readonly',
+      module: 'readonly',
+      require: 'readonly'
     }
   },
   rules: {
     'no-unused-vars': 'warn',
     'no-console': 'off',
-    'indent': ['error', 2]
+    'indent': ['error', 2],
+    'no-undef': 'error' 
   }
 };
 
 // Configuración para archivos de prueba
 const testConfig = {
-  files: ['test/test.js'], // Ajusta la ruta a tus archivos de prueba
+  files: ['test/**/*.js'], // Ajusta la ruta a tus archivos de prueba
   languageOptions: {
     globals: {
       describe: 'readonly',
@@ -31,18 +34,8 @@ const testConfig = {
   }
 };
 
-// Configuración para ignorar la carpeta cypress
-const ignoreCypressConfig = {
-  files: ['cypress/**/*'],
-  rules: {
-    'no-unused-vars': 'off',
-    'no-console': 'off'
-  }
-};
-
 // Exportar la configuración combinada
-export default [
+module.exports = [
   mainConfig,
-  testConfig,
-  ignoreCypressConfig
+  testConfig
 ];
