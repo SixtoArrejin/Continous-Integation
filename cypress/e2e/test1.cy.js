@@ -4,14 +4,14 @@ describe('Suma de dos números', () => {
     cy.visit('/');
   });
 
-  it('debería sumar dos números correctamente', () => {
+  it('debería multiplicar dos números correctamente', () => {
     // Seleccionamos los inputs y el botón, luego interactuamos con ellos
     cy.get('#num1').type('5');
     cy.get('#num2').type('3');
     cy.get('button').click();
 
     // Verificamos el resultado
-    cy.get('#resultado').should('have.text', 'La suma es: 8');
+    cy.get('#resultado').should('have.text', 'La multiplicación es: 15');
   });
 
   it('debería mostrar un error si no se ingresan números', () => {
