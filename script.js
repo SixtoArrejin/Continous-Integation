@@ -7,4 +7,4 @@ function sumar() {
   document.getElementById('resultado').innerText = result;
 }
 
-window.sumar = sumar
+window.sumar = sumar 
