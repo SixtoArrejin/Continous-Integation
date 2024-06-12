@@ -103,7 +103,7 @@ jobs:
       - run:
           name: Verificar calidad de SonarCloud
           command: |
-            STATUS=$(curl -s -u $SONAR_TOKEN: "https://sonarcloud.io/api/qualitygates/project_status?projectKey=$SONAR_PROJECT_KEY" | jq -r '.projectStatus.status')
+            STATUS=$(curl -s -u $SONAR_TOKEN: "https://sonarcloud.io/api/qualitygates/project_status?projectKey=$SONAR_PROJECT_KEY&branch=$CIRCLE_BRANCH" | jq -r '.projectStatus.status')
             if [ "$STATUS" != "OK" ]; then
               echo "Quality gate failed: $STATUS"
               exit 1  
@@ -193,44 +193,6 @@ jobs:
           event: pass
           template: basic_success
           custom: '{"text":"Las pruebas en producción han pasado! :white_check_mark:"}'
-
-# workflows:
-#   version: 2
-#   build_and_deploy:
-#     jobs:
-#       - notify-start
-#       - lint:
-#           requires:
-#             - notify-start
-#           filters:
-#             branches:
-#               only: main
-#       - test:
-#           requires:
-#             - notify-start
-#           filters:
-#             branches:
-#               only: main
-#       - sonarcloud:
-#           context: SonarCloud
-#           requires:
-#             - lint
-#             - test
-#           filters:
-#             branches:
-#               only: main
-#       - deploy:
-#           requires:
-#             - sonarcloud
-#           filters:
-#             branches:
-#               only: main
-#       - test-production:
-#           requires:
-#             - deploy
-#           filters:
-#             branches:
-#               only: main
 
 workflows:
   version: 2
