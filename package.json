@@ -2,12 +2,27 @@
     "name": "my-project",
     "version": "1.0.0",
     "scripts": {
-        "test": "mocha",
+        "test": "nyc mocha",
         "lint": "eslint .",
         "lint:html": "htmlhint ./*.html",
         "selenium-test": "node test/selenium-test.js",
         "cypress:open": "cypress open",
         "cypress:run": "cypress run"
+    },
+    "nyc": {
+        "reporter": [
+            "html",
+            "text",
+            "lcov"
+        ],
+        "report-dir": "./coverage",
+        "include": [
+            "funciones.js"
+        ],
+        "exclude": [
+            "node_modules",
+            "test"
+        ]
     },
     "dependencies": {
         "@eslint/js": "^9.4.0",

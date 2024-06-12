@@ -4,7 +4,6 @@ orbs:
   slack: circleci/slack@4.3.2
 
 jobs:
-
   notify-start:
     docker:
       - image: cimg/base:stable
@@ -92,6 +91,53 @@ jobs:
           template: basic_success
           custom: '{"text":"Las pruebas han pasado! :white_check_mark:"}'
 
+  sonarcloud:
+    docker:
+      - image: cimg/node:18.20.3
+    steps:
+      - checkout
+      - run: npm install
+      - run: npm run test
+      - run:
+          name: Ejecutar análisis de SonarCloud
+          command: |
+            sonar-scanner \
+              -Dsonar.organization=sixtoarrejin \
+              -Dsonar.projectKey=Continous-Integration \
+              -Dsonar.host.url=https://sonarcloud.io \
+              -Dsonar.login=$SONAR_TOKEN \
+              -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+      - slack/notify:
+          channel: facultad
+          event: fail
+          template: basic_failed
+          custom: '{"text":"Análisis de SonarCloud ha fallado! :x:"}'
+      - slack/notify:
+          channel: facultad
+          event: pass
+          template: basic_success
+          custom: '{"text":"Análisis de SonarCloud completado! :white_check_mark:"}'
+
+  # sonarcloud:
+  # docker:
+  #   - image: cimg/openjdk:11.0
+  # steps:
+  #   - checkout
+  #   - run:
+  #       name: Instalar SonarScanner
+  #       command: |
+  #         curl -sSLo sonar-scanner-cli.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip
+  #         unzip sonar-scanner-cli.zip
+  #         export PATH=$PATH:$(pwd)/sonar-scanner-4.6.2.2472-linux/bin
+  #   - run:
+  #       name: Ejecutar SonarScanner
+  #       command: |
+  #         sonar-scanner \
+  #           -Dsonar.projectKey=Continous-Integration \
+  #           -Dsonar.organization=sixtoarrejin \
+  #           -Dsonar.host.url=https://sonarcloud.io \
+  #           -Dsonar.login=$SONAR_TOKEN
+
   deploy:
     docker:
       - image: cimg/node:18.20.3
@@ -171,17 +217,27 @@ workflows:
     jobs:
       - notify-start
       - lint:
+          requires:
+            - notify-start
           filters:
             branches:
               only: main
       - test:
+          requires:
+            - notify-start
+          filters:
+            branches:
+              only: main
+      - sonarcloud:
+          requires:
+            - lint
+            - test
           filters:
             branches:
               only: main
       - deploy:
           requires:
-            - test
-            - lint
+            - sonarcloud
           filters:
             branches:
               only: main

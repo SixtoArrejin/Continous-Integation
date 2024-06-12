@@ -3,3 +3,4 @@ package-lock
 package-lock.json
 screenshots/
 cypress/screenshots/
+coverage/
