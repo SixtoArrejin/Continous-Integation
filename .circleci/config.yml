@@ -251,10 +251,24 @@ workflows:
 
   deploy_to_main:
     jobs:
-      - commit_pipeline
+      - notify-start
+      - lint:
+          requires:
+            - notify-start
+      - test:
+          requires:
+            - notify-start
+      - sonarcloud:
+          context: SonarCloud
+          requires:
+            - lint
+            - test
       - deploy:
           requires:
-            - commit_pipeline
+            - sonarcloud
+          filters:
+            branches:
+              only: main
       - test-production:
           requires:
             - deploy
