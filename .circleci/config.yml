@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   slack: circleci/slack@4.3.2
+  sonarcloud: sonarsource/sonarcloud@2.0.0
 
 jobs:
   notify-start:
@@ -98,15 +99,16 @@ jobs:
       - checkout
       - run: npm install
       - run: npm run test
-      - run:
-          name: Ejecutar análisis de SonarCloud
-          command: |
-            ./node_modules/.bin/sonar-scanner \
-              -Dsonar.organization=sixtoarrejin \
-              -Dsonar.projectKey=SixtoArrejin_Continous-Integration \
-              -Dsonar.host.url=https://sonarcloud.io \
-              -Dsonar.login=$SONAR_TOKEN \
-              -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+      # - run:
+      #     name: Ejecutar análisis de SonarCloud
+      #     command: |
+      #       ./node_modules/.bin/sonar-scanner \
+      #         -Dsonar.organization=sixtoarrejin \
+      #         -Dsonar.projectKey=SixtoArrejin_Continous-Integration \
+      #         -Dsonar.host.url=https://sonarcloud.io \
+      #         -Dsonar.login=$SONAR_TOKEN \
+      #         -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+      - sonarcloud/scan
       - slack/notify:
           channel: facultad
           event: fail
