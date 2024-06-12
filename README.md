@@ -27,7 +27,7 @@ cd Continous-Integration
 
 # Instala las dependencias
 npm install
-
+```
 
 [![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=SixtoArrejin_Continous-Integration)](https://sonarcloud.io/summary/new_code?id=SixtoArrejin_Continous-Integration)
 
