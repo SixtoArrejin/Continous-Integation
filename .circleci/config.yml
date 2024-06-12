@@ -101,7 +101,7 @@ jobs:
       - run:
           name: Instalar SonarScanner
           command: |
-            npm install -g sonarqube-scanner
+            npm install sonarqube-scanner
       - run:
           name: Ejecutar análisis de SonarCloud
           command: |
