@@ -106,7 +106,7 @@ jobs:
             STATUS=$(curl -s -u $SONAR_TOKEN: "https://sonarcloud.io/api/qualitygates/project_status?projectKey=$SONAR_PROJECT_KEY" | jq -r '.projectStatus.status')
             if [ "$STATUS" != "OK" ]; then
               echo "Quality gate failed: $STATUS"
-              exit 1
+              exit 1  
             else
               echo "Quality gate passed: $STATUS"
             fi
