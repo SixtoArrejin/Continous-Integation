@@ -248,6 +248,10 @@ workflows:
           requires:
             - lint
             - test
+        filters:
+          branches:
+            ignore:
+              - main
 
   deploy_to_main:
     jobs:
@@ -266,12 +270,9 @@ workflows:
       - deploy:
           requires:
             - sonarcloud
-          filters:
-            branches:
-              only: main
       - test-production:
           requires:
             - deploy
-          filters:
+        filters:
             branches:
               only: main
