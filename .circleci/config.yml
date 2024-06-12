@@ -107,7 +107,7 @@ jobs:
             if [ "$STATUS" != "OK" ]; then
               echo "Quality gate failed: $STATUS"
               exit 1  
-            else
+            else 
               echo "Quality gate passed: $STATUS"
             fi
       - slack/notify:
