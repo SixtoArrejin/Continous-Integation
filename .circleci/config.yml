@@ -194,37 +194,67 @@ jobs:
           template: basic_success
           custom: '{"text":"Las pruebas en producción han pasado! :white_check_mark:"}'
 
+# workflows:
+#   version: 2
+#   build_and_deploy:
+#     jobs:
+#       - notify-start
+#       - lint:
+#           requires:
+#             - notify-start
+#           filters:
+#             branches:
+#               only: main
+#       - test:
+#           requires:
+#             - notify-start
+#           filters:
+#             branches:
+#               only: main
+#       - sonarcloud:
+#           context: SonarCloud
+#           requires:
+#             - lint
+#             - test
+#           filters:
+#             branches:
+#               only: main
+#       - deploy:
+#           requires:
+#             - sonarcloud
+#           filters:
+#             branches:
+#               only: main
+#       - test-production:
+#           requires:
+#             - deploy
+#           filters:
+#             branches:
+#               only: main
+
 workflows:
   version: 2
-  build_and_deploy:
+  commit_pipeline:
     jobs:
       - notify-start
       - lint:
           requires:
             - notify-start
-          filters:
-            branches:
-              only: main
       - test:
           requires:
             - notify-start
-          filters:
-            branches:
-              only: main
       - sonarcloud:
           context: SonarCloud
           requires:
             - lint
             - test
-          filters:
-            branches:
-              only: main
+
+  deploy_to_main:
+    jobs:
+      - commit_pipeline
       - deploy:
           requires:
-            - sonarcloud
-          filters:
-            branches:
-              only: main
+            - commit_pipeline
       - test-production:
           requires:
             - deploy
