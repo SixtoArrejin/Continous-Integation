@@ -236,43 +236,70 @@ workflows:
   version: 2
   commit_pipeline:
     jobs:
-      - notify-start
+      - notify-start:
+          filters:
+            branches:
+              ignore:
+                - main
       - lint:
           requires:
             - notify-start
+          filters:
+            branches:
+              ignore:
+                - main
       - test:
           requires:
             - notify-start
+          filters:
+            branches:
+              ignore:
+                - main
       - sonarcloud:
           context: SonarCloud
           requires:
             - lint
             - test
-        filters:
-          branches:
-            ignore:
-              - main
+          filters:
+            branches:
+              ignore:
+                - main
 
   deploy_to_main:
     jobs:
-      - notify-start
+      - notify-start:
+          filters:
+            branches:
+              only: main
       - lint:
           requires:
             - notify-start
+          filters:
+            branches:
+              only: main
       - test:
           requires:
             - notify-start
+          filters:
+            branches:
+              only: main
       - sonarcloud:
           context: SonarCloud
           requires:
             - lint
             - test
+          filters:
+            branches:
+              only: main
       - deploy:
           requires:
             - sonarcloud
+          filters:
+            branches:
+              only: main
       - test-production:
           requires:
             - deploy
-        filters:
+          filters:
             branches:
               only: main
