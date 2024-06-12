@@ -4,3 +4,4 @@ package-lock.json
 screenshots/
 cypress/screenshots/
 coverage/
+.nyc_output/

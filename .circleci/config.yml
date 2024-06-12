@@ -78,7 +78,7 @@ jobs:
       - checkout
       - run:
           name: Instalar Mocha y Chai
-          command: npm install mocha chai
+          command: npm install
       - run: npm run test
       - slack/notify:
           channel: facultad
