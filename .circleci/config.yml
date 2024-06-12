@@ -229,10 +229,6 @@ workflows:
 
   deploy_to_main:
     jobs:
-      - notify-start:
-          filters:
-            branches:
-              only: main
       - lint:
           requires:
             - notify-start
