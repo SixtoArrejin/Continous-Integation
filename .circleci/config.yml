@@ -233,9 +233,7 @@ workflows:
           filters:
             branches:
               only: main
-      - test: 
-          requires:
-            - notify-start
+      - test:
           filters:
             branches:
               only: main
