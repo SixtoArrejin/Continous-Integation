@@ -8,7 +8,7 @@ jobs:
   notify-start:
     docker:
       - image: cimg/base:stable
-    steps:
+    steps: 
       - checkout
       - run:
           name: Obtener el mensaje del commit
