@@ -34,17 +34,17 @@ jobs:
                   "fields": [
                     {
                       "type": "mrkdwn",
-                      "text": "*Usuario:*\n$CIRCLE_USERNAME"
+                      "text": "*Usuario:*\n $CIRCLE_USERNAME"
                     },
                     {
                       "type": "mrkdwn",
-                      "text": "*Repositorio:*\n$CIRCLE_PROJECT_REPONAME"
+                      "text": "*Repositorio:*\n $CIRCLE_PROJECT_REPONAME"
                     },
                     {
                       "type": "mrkdwn",
-                      "text": "*Commit:*\n$COMMIT_MSG"
+                      "text": "*Commit:*\n $COMMIT_MSG"
                     },
-                    {
+                    { 
                       "type": "mrkdwn",
                       "text": "*Branch:*\n$CIRCLE_BRANCH"
                     }
