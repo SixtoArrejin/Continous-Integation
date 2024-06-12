@@ -233,7 +233,6 @@ jobs:
 #               only: main
 
 workflows:
-  version: 2
   commit_pipeline:
     jobs:
       - notify-start:
