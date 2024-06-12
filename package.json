@@ -1,5 +1,5 @@
 {
-    "name": "my-project",
+    "name": "integracion-continua",
     "version": "1.0.0",
     "scripts": {
         "test": "nyc mocha",
@@ -22,8 +22,9 @@
         "exclude": [
             "node_modules",
             "test"
-        ]
-    }, 
+        ],
+        "all": true
+    },
     "dependencies": {
         "@eslint/js": "^9.4.0",
         "chai": "^4.3.4",
@@ -36,4 +37,4 @@
         "cypress": "^13.11.0",
         "htmlhint": "^1.1.4"
     }
-} 
+}
