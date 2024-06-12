@@ -99,6 +99,10 @@ jobs:
       - run: npm install
       - run: npm run test
       - run:
+          name: Instalar SonarScanner
+          command: |
+            npm install -g sonarqube-scanner
+      - run:
           name: Ejecutar análisis de SonarCloud
           command: |
             sonar-scanner \
