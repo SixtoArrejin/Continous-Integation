@@ -1,10 +1,10 @@
-/* global sum */
+/* global mul */
 
-function sumar() {
+function multiplicar() {
   let num1 = document.getElementById('num1').value;
   let num2 = document.getElementById('num2').value;
-  let result = sum(num1, num2);
+  let result = mul(num1, num2);
   document.getElementById('resultado').innerText = result;
 }
 
-window.sumar = sumar 
+window.multiplicar = multiplicar
