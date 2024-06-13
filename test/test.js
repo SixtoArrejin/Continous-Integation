@@ -4,7 +4,7 @@ const mul = require('../funciones.js');
 
 describe('Función sumar()', () => {
   it('debería devolver la multiplicación de dos números', () => {
-    strictEqual(mul(2, 4), 'La multiplicación es: 6');
+    strictEqual(mul(2, 3), 'La multiplicación es: 6');
     strictEqual(mul(0, 0), 'La multiplicación es: 0');
     strictEqual(mul(-1, 1), 'La multiplicación es: -1');
   });
