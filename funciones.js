@@ -5,7 +5,7 @@ function mul(num1, num2) {
     return 'Por favor, ingrese dos números válidos.';
   } else {
     let suma = num1 * num2;
-    return 'La multiplicación es: ' + suma;
+        return 'La multiplicación es: ' + suma;
   }
 }
 
