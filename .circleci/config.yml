@@ -10,11 +10,6 @@ jobs:
       - image: cimg/base:stable
     steps: 
       - checkout
-      - run:
-          name: Obtener el mensaje del commit
-          command: |
-            export COMMIT_MSG=$(git log -1 --pretty=%B)
-            echo "export COMMIT_MSG='$COMMIT_MSG'" >> $BASH_ENV
       - slack/notify:
           channel: facultad
           event: always
@@ -42,7 +37,7 @@ jobs:
                     },
                     {
                       "type": "mrkdwn",
-                      "text": "*Commit:*\n $COMMIT_MSG"
+                      "text": "*Commit:*\n $CIRCLE_SHA1"
                     },
                     { 
                       "type": "mrkdwn",
@@ -196,64 +191,32 @@ jobs:
 
 workflows:
   version: 2
-  commit_pipeline:
+  build_and_deploy:
     jobs:
-      - notify-start:
-          filters:
-            branches:
-              ignore:
-                - main
+      - notify-start
       - lint:
           requires:
             - notify-start
-          filters:
-            branches:
-              ignore:
-                - main
       - test:
           requires:
             - notify-start
-          filters:
-            branches:
-              ignore:
-                - main
       - sonarcloud:
           context: SonarCloud
           requires:
-            - lint
             - test
-          filters:
-            branches:
-              ignore:
-                - main
-
-  deploy_to_main:
-    jobs:
-      - lint:
-          filters:
-            branches:
-              only: main
-      - test:
-          filters:
-            branches:
-              only: main
-      - sonarcloud:
-          context: SonarCloud
-          requires:
             - lint
-            - test
-          filters:
+          filters: 
             branches:
-              only: main
+              only: main        
       - deploy:
           requires:
             - sonarcloud
           filters:
-            branches:
+             branches:
               only: main
       - test-production:
-          requires:
-            - deploy
-          filters:
-            branches:
-              only: main
+            requires:
+              - deploy
+            filters:
+              branches:
+                only: main
