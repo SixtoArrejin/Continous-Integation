@@ -14,6 +14,8 @@ Este proyecto implementa un pipeline de integración continua utilizando **Circl
 - **Jira**: Gestión de proyectos
 - **Slack**: Notificaciones y comunicación en equipo
 
+![Tecnologías utilizadas](img/CI-tecnologias.png)
+
 ## 🏃‍♂️ Cómo Ejecutar el Proyecto
 
 Sigue estos pasos para clonar y ejecutar el proyecto en tu entorno local:
